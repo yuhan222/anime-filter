@@ -111,7 +111,7 @@
 /* ⭐ 左側容器：用於包裹抽選結果和已加入清單，實現垂直堆疊自適應 */
 .left-panel-container {
   position: absolute;
-  left: -30px; 
+  left: -50px; 
   top: 90px; /* ⭐ 修正：向下移動，為 action-buttons-container 騰出空間 */
   width: 350px; 
   
