@@ -1,0 +1,415 @@
+/* 🌟 全域設定 */
+.anime-container {
+  font-family: "Microsoft JhengHei", sans-serif;
+  background: #ebeff7;
+  min-height: 100vh;
+}
+
+/* 🌟 Header */
+.top-header {
+  background: #18148fde;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-header h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.wheel-btn {
+  padding: 8px 16px;
+  background: white;
+  color: #6c7bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.wheel-btn:hover{
+  background: #edeef6da;
+}
+
+/* 🔍 搜尋區 */
+#searchSection {
+  width: 80%;
+  margin: 25px auto 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-bar-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+#searchBar,
+.search-bar-wrapper input {
+  flex: 1;
+  max-width: 600px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+#searchNameBtn{
+  background: #1f11a1d6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#filterBtn,
+#resetBtn {
+  background: #5f7cd2e7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#searchNameBtn:hover,
+#filterBtn:hover,
+#resetBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#resetBtn.active {
+  background-color: #3c53d3de;
+}
+
+/* 🛠 修正篩選器排版置中 */
+#filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 🪙 Dropdown 多選樣式 */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background: white;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 8px 30px 8px 10px;
+  min-width: 130px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-btn::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 12px;
+}
+
+/* ⛔ 修正下拉式選單 */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 20000;
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-height: 240px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.dropdown-content.active {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 6px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-content input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.dropdown-content label:hover {
+  background: #eef;
+}
+
+/* 滑出動畫 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🎴 動漫卡片區 */
+#animeWrapper {
+  background: white;
+  width: 90%;
+  margin: 30px auto;
+  border-radius: 30px 30px 0 0;
+  padding: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+#animeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.animeCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ccc;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.animeCard:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-color: #6c7bff;
+}
+
+.animeCard img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.animeCard h3 {
+  margin: 8px;
+  font-size: 15px;
+  color: #333;
+}
+
+/* 📄 分頁按鈕 */
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+#pagination button {
+  background: linear-gradient(135deg, #6c7bff, #4a5cff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#pagination button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 5px 12px rgba(108,123,255,0.4);
+}
+
+#pageInfo {
+  font-size: 15px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* 📌 詳細介紹彈窗 */
+#detailOverlay {
+  display: none; /* 預設完全不出現 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 50000;
+}
+
+#detailOverlay.active {
+  display: flex; /* 顯示彈窗 */
+}
+
+#detailCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  max-width: 1000px;
+  width: 90%;
+  position: relative;
+}
+
+#detailImg {
+  max-width: 280px;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+#detailText {
+  flex: 1;
+}
+
+#closeDetail {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+}
+
+#detailTags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: #dfe3ff;
+  color: #333;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+/* ⭐ 加入轉盤按鈕 */
+.add-wheel-btn {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  background: #6c7bff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.add-wheel-btn:hover {
+  transform: scale(1.05);
+  background: #5a67e8;
+}
+
+.toast-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(108, 123, 255, 0.95);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 99999;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* 🎬 預告片區塊外框 */
+.trailer-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+/* 🎬 預告片標題 */
+.trailer-section h3 {
+  font-size: 18px;
+  color: #2b2b6f;
+  margin: 0 0 8px 0;   /* 🔹貼近影片、去掉多餘外距 */
+  text-align: left;    /* 🔹靠左對齊 */
+}
+
+/* 📺 YouTube iframe 大小 & 外觀 */
+.trailer-section iframe {
+  width: 300px;   /* 🔹固定較小尺寸 */
+  height: 180px;
+  border-radius: 10px;
+  display: block;
+  margin: 8px 0;   
+}
+
+/* ⭐ 讓介紹文字和影片水平並排 */
+.detail-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* 左邊文字區塊 — 使用原本樣式，不改只限定寬度 */
+.detail-left {
+  flex: 1;
+}
+
+/* 右邊影片區塊 */
+.detail-right {
+  width: 320px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.detail-right iframe {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+}
+
+/* 📱 手機版自動改回垂直排列 */
+@media (max-width: 768px) {
+  .detail-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .detail-right {
+    width: 100%;
+  }
+}
+

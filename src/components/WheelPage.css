@@ -1,0 +1,659 @@
+/* 🔹 頁面基本設定 */
+#wheelPage {
+  display: block;
+  text-align: center;
+  padding: 50px;
+  font-family: "Microsoft JhengHei", sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #dfe7ff);
+  min-height: 100vh;
+  
+  /* ⭐ 修正: 增加頂部內邊距，為固定 Header 騰出空間 */
+  padding-top: 100px; 
+  overflow-x: hidden; /* ⭐ 關鍵修正：隱藏任何水平溢出的內容 */
+}
+
+/* 🔹 標題列 (Header) */
+.wheel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0; /* 移除 Header 底部間距 */
+  
+  /* ⭐ 修正: 將 Header 固定在頂部 */
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 50px; 
+  background: #2e14a3; 
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10000; 
+}
+
+/* ⬅️ 左側按鈕區塊容器 (Header 內只有返回按鈕) */
+.left-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  margin-left: 0; 
+}
+
+/* ⭐ 新增容器：Header 下方功能按鈕的新位置 (隨機和自訂) */
+.action-buttons-container {
+    display: flex;
+    justify-content: flex-start; /* 讓按鈕靠左對齊 */
+    gap: 15px;
+    
+    /* ⭐ 定位在 Header 下方，並與左側清單容器對齊 */
+    position: absolute;
+    top: 0px; /* 根據 Header 高度調整，使其剛好在 Header 下方 */
+    left: 30px; /* 與 Header 的左邊距對齊 */
+    z-index: 100;
+}
+
+/* 返回按鈕 */
+.back-btn {
+  background: white;
+  color: #5a67d8;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.back-btn:hover{
+  background: #edeef6da;
+}
+
+/* 隨機按鈕 */
+.random-btn {
+  background: #392cb5d6;
+  color: white;
+  border: none;
+  padding: 15px 29px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.25s;
+  font-size: 20px;
+}
+
+.random-btn:hover {
+  background: #301dbd;
+}
+
+/* 自訂按鈕 */
+.customize-btn {
+  background: #392cb5d6;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 29px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 20px;
+}
+.customize-btn:hover {
+  background: #301dbd;
+}
+
+/* 🔹 主體布局：核心區域水平右移 */
+.wheel-main {
+  display: flex;
+  justify-content: center; /* 讓轉盤核心區塊維持居中 */
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+  margin-top: 35px;
+  transform: translateX(250px); 
+}
+
+/* ⭐ 左側容器：用於包裹抽選結果和已加入清單，實現垂直堆疊自適應 */
+.left-panel-container {
+  position: absolute;
+  left: -30px; 
+  top: 90px; /* ⭐ 修正：向下移動，為 action-buttons-container 騰出空間 */
+  width: 350px; 
+  
+  /* 讓子元素垂直堆疊並推開彼此 */
+  display: flex; 
+  flex-direction: column;
+  gap: 20px; /* 兩個清單之間的間距 */
+}
+
+
+/* 🔹 抽選結果欄位（左上） */
+.result-panel {
+  width: 100%; /* 佔滿容器寬度 */
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: left;
+  font-size: 15px;
+  max-height: 300px; /* 保持最大高度限制 */
+  overflow-y: auto;
+}
+
+.result-panel h3 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: #2e14a3;
+}
+
+/* ⭐ 修正：增加抽選結果列表項目的間距 */
+.result-panel ul li {
+    margin-bottom: 10px; /* 項目底部間距 */
+    padding-bottom: 5px; /* 項目底部內邊距 */
+    border-bottom: 1px solid #eee; /* 分隔線 */
+}
+
+/* 確保最後一個項目沒有底部邊距或分隔線 */
+.result-panel ul li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+
+/* 🎴 左下側動畫清單 */
+.left-list { 
+  width: 100%; /* 佔滿容器寬度 */
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: left;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* 移除原 right-list 的樣式 */
+.right-list {
+  display: none; 
+}
+
+.left-list h3 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: #2e14a3;
+}
+
+.right-item { /* 這裡的 right-item 類名用於清單項目，保留 */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  transition: 0.25s ease;
+}
+
+.right-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.right-item img {
+  width: 55px;
+  height: 55px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.right-item button {
+  margin-left: auto;
+  background: #ff4a4a;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.right-item button:hover {
+  background: #d93838;
+}
+
+/* 🔹 轉盤容器 — 完全置中 */
+.wheel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  flex-shrink: 0;
+}
+
+/* 🎯 轉盤大小固定 */
+.wheel-wrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto 25px;
+}
+
+.wheel-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid #6c7bff;
+  box-shadow: 0 0 20px rgba(108,123,255,0.4), inset 0 0 12px rgba(255,255,255,0.6);
+}
+
+/* 🔺 指針 — 固定在轉盤上方中央 */
+.pointer {
+  width: 0;
+  height: 0;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-top: 30px solid #ff6b6b;
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+}
+
+
+/* 🔹 抽選 / 清除按鈕 */
+.wheel-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  transform: translateX(250px); 
+}
+
+.spinBtn,
+.clearWheelBtn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.spinBtn { background: #2e14a3; }
+.clearWheelBtn { background: #d40d0d; }
+
+.spinBtn:hover,
+.clearWheelBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.clearWheelBtn:hover { background: #b50a0a; }
+
+/********************************
+ ⭐ 🔧 自訂彈窗內容 (美化開始)
+********************************/
+#customizeOverlay {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); /* 調整為更深的背景 */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 9999;
+}
+
+#customizeCard {
+  background: #f8faff; /* 淺色背景 */
+  width: 90%;
+  max-width: 500px;
+  padding: 30px; /* 增加內邊距 */
+  border-radius: 18px; /* 更圓潤 */
+  /* ⭐ 調整陰影，增加立體感 */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); 
+  position: relative;
+  text-align: left;
+  max-height: 85vh; /* 增加最大高度 */
+  overflow-y: auto;
+}
+
+/* 彈窗標題美化 */
+#customizeCard h2 {
+    font-size: 24px;
+    color: #2e14a3;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    /* ⭐ 底部分隔線 */
+    border-bottom: 3px solid #6c7bff; 
+    text-align: center;
+}
+
+
+#closeCustomize {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px; /* 放大關閉按鈕 */
+  color: #333;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+#closeCustomize:hover {
+    color: #ff4a4a; /* 懸停變紅 */
+}
+
+.segment-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; /* 增加行間距 */
+  gap: 15px;
+}
+
+.segment-row label {
+    font-weight: 600;
+    color: #444;
+}
+
+.segment-row input {
+  flex: 1;
+  padding: 10px 12px; /* 增加內邊距 */
+  border-radius: 8px; /* 更圓潤的輸入框 */
+  border: 1px solid #ccc;
+  font-size: 15px;
+  /* ⭐ 輸入框陰影 */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); 
+  transition: border-color 0.2s;
+}
+
+.segment-row input:focus {
+    border-color: #6c7bff;
+    outline: none;
+}
+
+/* ⭐ 保存按鈕美化 */
+#saveWheelContent {
+  width: 100%;
+  padding: 12px; /* 增加按鈕高度 */
+  margin-top: 30px;
+  background: linear-gradient(135deg, #4c66ff, #2e14a3); /* 漸變背景 */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  /* ⭐ 突出陰影 */
+  box-shadow: 0 8px 15px rgba(46, 20, 163, 0.4); 
+}
+
+#saveWheelContent:hover {
+  background: linear-gradient(135deg, #2e14a3, #4c66ff); /* 懸停時反轉漸變 */
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(46, 20, 163, 0.5);
+}
+
+/********************************
+ 彈窗/轉盤/列表的其餘樣式 (保持不變)
+********************************/
+.wheel-title {
+  /* ⭐ 修正: 保持 Header 標題的標準定位 */
+  display: inline-block;
+  background: none; 
+  color: white; 
+  padding: 0; 
+  border-radius: 0;
+  font-size: 26px; 
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  box-shadow: none; 
+  margin: 0;
+  
+  /* ⭐ 關鍵修正: 移除所有定位變形，讓它在 space-between 中置中 */
+  margin-right: 70px; 
+  transform: none; 
+  text-align: center; 
+  
+  transition: none;
+}
+
+.wheel-title:hover {
+  transform: none;
+}
+
+/* 🔹 抽選 / 清除按鈕 */
+.wheel-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  transform: translateX(250px); 
+}
+
+
+/* 🟣 AnimeFilter 詳細資訊彈窗 — 完整套用 (不變) */
+#detailOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  justify-content: center;
+  align-items: center;
+  z-index: 50000;
+}
+
+#detailOverlay.active {
+  display: flex;
+}
+
+#detailCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex; 
+  gap: 20px;
+  max-width: 1000px;
+  width: 90%;
+  position: relative;
+}
+
+#detailImg {
+  max-width: 280px;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block; 
+}
+
+#detailText {
+  flex: 1;
+}
+
+#detailText h2 {
+  text-align: left;
+  margin: 0 0 10px;
+  font-size: 26px;
+  color: #2b2b6f;
+}
+
+.popup-desc {
+  text-align: left !important;
+}
+
+#detailTags {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: #dfe3ff;
+  color: #333;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+#closeDetail {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #444;
+  cursor: pointer;
+}
+
+/* 🎬 預告片區塊 */
+.trailer-section {
+  margin-top: 20px;
+  padding: 12px;
+  background: #f8f9ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.trailer-section iframe {
+  width: 300px;
+  height: 180px;
+  border-radius: 10px;
+}
+
+/* 📱 手機版調整 */
+@media (max-width: 768px) {
+  #detailImg {
+    max-width: 90%;
+    max-height: 280px;
+  }
+}
+
+/* A. 科技藍漸變風格 - 詳細內容按鈕 (.detail-btn) */
+.result-panel .detail-btn {
+  /* 基本外觀 */
+  background: linear-gradient(135deg, #4c66ff, #6c7bff); 
+  color: white;
+  border: 1px solid #4a66ff;
+  border-radius: 18px; 
+  padding: 5px 12px;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(76, 102, 255, 0.3); 
+  letter-spacing: 0.5px;
+  
+  /* 確保圖示和文字能並排居中 */
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 懸停效果 */
+.result-panel .detail-btn:hover {
+  background: linear-gradient(135deg, #6c7bff, #4c66ff); 
+  transform: translateY(-1px); 
+  box-shadow: 0 6px 12px rgba(76, 102, 255, 0.45); 
+}
+
+/* 點擊效果 */
+.result-panel .detail-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(76, 102, 255, 0.2);
+}
+
+/* 添加一個小圖示讓按鈕更生動 */
+.result-panel .detail-btn::before {
+  content: '🔍'; 
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+
+/* 🎲 隨機彈窗樣式 */
+.random-input {
+  width: 80px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.popup-buttons button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-buttons button:last-child {
+  background: #5a67d8;
+  color: white;
+}
+
+/* 🎯 隨機彈窗出現在畫面中央 */
+#popupOverlay {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 50000;
+}
+
+#popupCard {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  animation: popupFade 0.3s ease-out;
+}
+
+/* 🎯 隨機加入彈窗 - 關閉按鈕 */
+#closePopup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+#closePopup:hover {
+  color: #000;  /* hover 時稍微變深 */
+}
+
+
+/* 彈出淡入動畫 */
+@keyframes popupFade {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
