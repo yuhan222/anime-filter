@@ -48,7 +48,7 @@
     /* ⭐ 定位在 Header 下方，並與左側清單容器對齊 */
     position: absolute;
     top: 0px; /* 根據 Header 高度調整，使其剛好在 Header 下方 */
-    left: 0px; /* 與 Header 的左邊距對齊 */
+    left: -5px; /* 與 Header 的左邊距對齊 */
     z-index: 100;
 }
 
@@ -271,7 +271,7 @@
 
 .spinBtn,
 .clearWheelBtn {
-  padding: 15px 30px;
+  padding: 12px 24px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
