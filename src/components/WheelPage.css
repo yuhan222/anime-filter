@@ -1,7 +1,3 @@
-/* =========================================
-   🖥️ 電腦版樣式 (保持您要的設定)
-   ========================================= */
-
 /* 🔹 頁面基本設定 */
 #wheelPage {
   display: block;
@@ -11,17 +7,19 @@
   background: linear-gradient(135deg, #eef2ff, #dfe7ff);
   min-height: 100vh;
   
-  /* 電腦版 Header 空間 */
+  /* ⭐ 修正: 增加頂部內邊距，為固定 Header 騰出空間 */
   padding-top: 100px; 
-  overflow-x: hidden; 
+  overflow-x: hidden; /* ⭐ 關鍵修正：隱藏任何水平溢出的內容 */
 }
 
 /* 🔹 標題列 (Header) */
 .wheel-header {
   display: flex;
-  justify-content: center; /* 標題居中 */
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 0; 
+  margin-bottom: 0; /* 移除 Header 底部間距 */
+  
+  /* ⭐ 修正: 將 Header 固定在頂部 */
   position: fixed; 
   top: 0;
   left: 0;
@@ -35,25 +33,22 @@
 
 /* ⬅️ 左側按鈕區塊容器 (Header 內只有返回按鈕) */
 .left-buttons {
-  position: absolute;
-  left: 50px;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 10px; 
+  margin-left: 0; 
 }
 
-/* ⭐ 電腦版：Header 下方功能按鈕位置 */
+/* ⭐ 新增容器：Header 下方功能按鈕的新位置 (隨機和自訂) */
 .action-buttons-container {
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start; /* 讓按鈕靠左對齊 */
     gap: 15px;
     
-    /* 絕對定位 */
+    /* ⭐ 定位在 Header 下方，並與左側清單容器對齊 */
     position: absolute;
-    top: 80px;  /* 電腦版的高度 */
-    left: 50px; 
+    top: 0px; /* 根據 Header 高度調整，使其剛好在 Header 下方 */
+    left: -5px; /* 與 Header 的左邊距對齊 */
     z-index: 100;
 }
 
@@ -66,7 +61,6 @@
   padding: 8px 16px;
   cursor: pointer;
   transition: 0.2s;
-  font-weight: bold;
 }
 .back-btn:hover{
   background: #edeef6da;
@@ -74,62 +68,70 @@
 
 /* 隨機按鈕 */
 .random-btn {
-  font-size: 18px; 
   background: #392cb5d6;
   color: white;
   border: none;
   padding: 15px 29px;
-  border-radius: 6px;
+  border-radius: 50px;
   cursor: pointer;
   transition: 0.25s;
+  font-size: 20px;
 }
-.random-btn:hover { background: #301dbd; }
+
+.random-btn:hover {
+  background: #301dbd;
+}
 
 /* 自訂按鈕 */
 .customize-btn {
-  font-size: 18px; 
   background: #392cb5d6;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 50px;
   padding: 15px 29px;
   cursor: pointer;
   transition: 0.2s;
+  font-size: 20px;
 }
-.customize-btn:hover { background: #301dbd; }
+.customize-btn:hover {
+  background: #301dbd;
+}
 
 /* 🔹 主體布局：核心區域水平右移 */
 .wheel-main {
   display: flex;
-  justify-content: center; 
+  justify-content: center; /* 讓轉盤核心區塊維持居中 */
   align-items: flex-start;
   position: relative;
   width: 100%;
-  margin-top: 20px;
-  transform: translateX(130px); /* 電腦版右移 */
+  margin-top: 35px;
+  transform: translateX(250px); 
 }
 
-/* ⭐ 左側容器 */
+/* ⭐ 左側容器：用於包裹抽選結果和已加入清單，實現垂直堆疊自適應 */
 .left-panel-container {
   position: absolute;
-  left: -5px; 
-  top: 40px; 
-  width: 300px; 
+  left: -70px; 
+  top: 90px; /* ⭐ 修正：向下移動，為 action-buttons-container 騰出空間 */
+  width: 350px; 
+  
+  /* 讓子元素垂直堆疊並推開彼此 */
   display: flex; 
   flex-direction: column;
-  gap: 20px; 
+  gap: 20px; /* 兩個清單之間的間距 */
 }
 
-/* 🔹 抽選結果欄位 */
+
+/* 🔹 抽選結果欄位（左上） */
 .result-panel {
-  width: 100%; 
+  width: 100%; /* 佔滿容器寬度 */
   background: white;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   text-align: left;
   font-size: 15px;
-  max-height: 300px; 
+  max-height: 300px; /* 保持最大高度限制 */
   overflow-y: auto;
 }
 
@@ -139,20 +141,24 @@
   color: #2e14a3;
 }
 
+/* ⭐ 修正：增加抽選結果列表項目的間距 */
 .result-panel ul li {
-    margin-bottom: 10px; 
-    padding-bottom: 5px; 
-    border-bottom: 1px solid #eee; 
+    margin-bottom: 10px; /* 項目底部間距 */
+    padding-bottom: 5px; /* 項目底部內邊距 */
+    border-bottom: 1px solid #eee; /* 分隔線 */
 }
+
+/* 確保最後一個項目沒有底部邊距或分隔線 */
 .result-panel ul li:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
 }
 
+
 /* 🎴 左下側動畫清單 */
 .left-list { 
-  width: 100%; 
+  width: 100%; /* 佔滿容器寬度 */
   background: white;
   padding: 15px;
   border-radius: 12px;
@@ -162,7 +168,10 @@
   overflow-y: auto;
 }
 
-.right-list { display: none; }
+/* 移除原 right-list 的樣式 */
+.right-list {
+  display: none; 
+}
 
 .left-list h3 {
   margin: 0 0 10px;
@@ -170,7 +179,7 @@
   color: #2e14a3;
 }
 
-.right-item { 
+.right-item { /* 這裡的 right-item 類名用於清單項目，保留 */
   display: flex;
   align-items: center;
   gap: 10px;
@@ -181,7 +190,11 @@
   margin-bottom: 12px;
   transition: 0.25s ease;
 }
-.right-item:hover { transform: scale(1.03); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+
+.right-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
 
 .right-item img {
   width: 55px;
@@ -201,9 +214,12 @@
   cursor: pointer;
   transition: 0.2s ease;
 }
-.right-item button:hover { background: #d93838; }
 
-/* 🔹 轉盤容器 */
+.right-item button:hover {
+  background: #d93838;
+}
+
+/* 🔹 轉盤容器 — 完全置中 */
 .wheel-container {
   display: flex;
   flex-direction: column;
@@ -228,7 +244,7 @@
   box-shadow: 0 0 20px rgba(108,123,255,0.4), inset 0 0 12px rgba(255,255,255,0.6);
 }
 
-/* 🔺 指針 */
+/* 🔺 指針 — 固定在轉盤上方中央 */
 .pointer {
   width: 0;
   height: 0;
@@ -243,17 +259,19 @@
   filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
 }
 
+
 /* 🔹 抽選 / 清除按鈕 */
 .wheel-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 15px;
-  transform: translateX(130px); 
+  margin-top: 30px;
+  transform: translateX(250px); 
 }
 
-.spinBtn, .clearWheelBtn {
-  padding: 10px 20px;
+.spinBtn,
+.clearWheelBtn {
+  padding: 12px 24px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -262,71 +280,131 @@
   cursor: pointer;
   transition: all 0.25s ease;
 }
+
 .spinBtn { background: #2e14a3; }
 .clearWheelBtn { background: #d40d0d; }
-.spinBtn:hover, .clearWheelBtn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+.spinBtn:hover,
+.clearWheelBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
 .clearWheelBtn:hover { background: #b50a0a; }
 
-/* 🔧 自訂彈窗樣式 */
+/********************************
+ ⭐ 🔧 自訂彈窗內容 (美化開始)
+********************************/
 #customizeOverlay {
   position: fixed !important;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7); /* 調整為更深的背景 */
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   z-index: 9999;
 }
+
 #customizeCard {
-  background: white;
+  background: #f8faff; /* 淺色背景 */
   width: 90%;
   max-width: 500px;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  padding: 30px; /* 增加內邊距 */
+  border-radius: 18px; /* 更圓潤 */
+  /* ⭐ 調整陰影，增加立體感 */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); 
   position: relative;
   text-align: left;
-  max-height: 80vh;
+  max-height: 85vh; /* 增加最大高度 */
   overflow-y: auto;
 }
+
+/* 彈窗標題美化 */
+#customizeCard h2 {
+    font-size: 24px;
+    color: #2e14a3;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    /* ⭐ 底部分隔線 */
+    border-bottom: 3px solid #6c7bff; 
+    text-align: center;
+}
+
+
 #closeCustomize {
   position: absolute;
   top: 15px;
   right: 15px;
-  font-size: 22px;
-  color: #555;
+  font-size: 24px; /* 放大關閉按鈕 */
+  color: #333;
   cursor: pointer;
   background: none;
   border: none;
+  transition: color 0.2s;
 }
+#closeCustomize:hover {
+    color: #ff4a4a; /* 懸停變紅 */
+}
+
 .segment-row {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
-  gap: 10px;
+  margin-bottom: 15px; /* 增加行間距 */
+  gap: 15px;
 }
+
+.segment-row label {
+    font-weight: 600;
+    color: #444;
+}
+
 .segment-row input {
   flex: 1;
-  padding: 8px;
-  border-radius: 5px;
+  padding: 10px 12px; /* 增加內邊距 */
+  border-radius: 8px; /* 更圓潤的輸入框 */
   border: 1px solid #ccc;
+  font-size: 15px;
+  /* ⭐ 輸入框陰影 */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); 
+  transition: border-color 0.2s;
 }
+
+.segment-row input:focus {
+    border-color: #6c7bff;
+    outline: none;
+}
+
+/* ⭐ 保存按鈕美化 */
 #saveWheelContent {
   width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background: #1f11a1d6;
+  padding: 12px; /* 增加按鈕高度 */
+  margin-top: 30px;
+  background: linear-gradient(135deg, #4c66ff, #2e14a3); /* 漸變背景 */
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  /* ⭐ 突出陰影 */
+  box-shadow: 0 8px 15px rgba(46, 20, 163, 0.4); 
 }
-#saveWheelContent:hover { background: #3c2bb8; }
 
+#saveWheelContent:hover {
+  background: linear-gradient(135deg, #2e14a3, #4c66ff); /* 懸停時反轉漸變 */
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(46, 20, 163, 0.5);
+}
+
+/********************************
+ 彈窗/轉盤/列表的其餘樣式 (保持不變)
+********************************/
 .wheel-title {
+  /* ⭐ 修正: 保持 Header 標題的標準定位 */
   display: inline-block;
   background: none; 
   color: white; 
@@ -337,14 +415,131 @@
   letter-spacing: 2.5px;
   box-shadow: none; 
   margin: 0;
+  
+  /* ⭐ 關鍵修正: 移除所有定位變形，讓它在 space-between 中置中 */
   margin-right: 70px; 
   transform: none; 
   text-align: center; 
+  
   transition: none;
 }
 
-/* 詳細按鈕樣式 */
+.wheel-title:hover {
+  transform: none;
+}
+
+/* 🔹 抽選 / 清除按鈕 */
+.wheel-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  transform: translateX(250px); 
+}
+
+
+/* 🟣 AnimeFilter 詳細資訊彈窗 — 完整套用 (不變) */
+#detailOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  justify-content: center;
+  align-items: center;
+  z-index: 50000;
+}
+
+#detailOverlay.active {
+  display: flex;
+}
+
+#detailCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex; 
+  gap: 20px;
+  max-width: 1000px;
+  width: 90%;
+  position: relative;
+}
+
+#detailImg {
+  max-width: 280px;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block; 
+}
+
+#detailText {
+  flex: 1;
+}
+
+#detailText h2 {
+  text-align: left;
+  margin: 0 0 10px;
+  font-size: 26px;
+  color: #2b2b6f;
+}
+
+.popup-desc {
+  text-align: left !important;
+}
+
+#detailTags {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: #dfe3ff;
+  color: #333;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+#closeDetail {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #444;
+  cursor: pointer;
+}
+
+/* 🎬 預告片區塊 */
+.trailer-section {
+  margin-top: 20px;
+  padding: 12px;
+  background: #f8f9ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.trailer-section iframe {
+  width: 300px;
+  height: 180px;
+  border-radius: 10px;
+}
+
+/* 📱 手機版調整 */
+@media (max-width: 768px) {
+  #detailImg {
+    max-width: 90%;
+    max-height: 280px;
+  }
+}
+
+/* A. 科技藍漸變風格 - 詳細內容按鈕 (.detail-btn) */
 .result-panel .detail-btn {
+  /* 基本外觀 */
   background: linear-gradient(135deg, #4c66ff, #6c7bff); 
   color: white;
   border: 1px solid #4a66ff;
@@ -357,23 +552,32 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(76, 102, 255, 0.3); 
   letter-spacing: 0.5px;
+  
+  /* 確保圖示和文字能並排居中 */
   display: inline-flex;
   align-items: center;
 }
+
+/* 懸停效果 */
 .result-panel .detail-btn:hover {
   background: linear-gradient(135deg, #6c7bff, #4c66ff); 
   transform: translateY(-1px); 
   box-shadow: 0 6px 12px rgba(76, 102, 255, 0.45); 
 }
+
+/* 點擊效果 */
 .result-panel .detail-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 5px rgba(76, 102, 255, 0.2);
 }
+
+/* 添加一個小圖示讓按鈕更生動 */
 .result-panel .detail-btn::before {
   content: '🔍'; 
   margin-right: 4px;
   font-size: 12px;
 }
+
 
 /* 🎲 隨機彈窗樣式 */
 .random-input {
@@ -385,22 +589,27 @@
   margin-top: 8px;
   font-size: 16px;
 }
+
 .popup-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 15px;
 }
+
 .popup-buttons button {
   padding: 6px 14px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
 }
+
 .popup-buttons button:last-child {
   background: #5a67d8;
   color: white;
 }
+
+/* 🎯 隨機彈窗出現在畫面中央 */
 #popupOverlay {
   position: fixed !important;
   top: 0;
@@ -413,6 +622,7 @@
   align-items: center !important;
   z-index: 50000;
 }
+
 #popupCard {
   background: white;
   padding: 25px;
@@ -423,6 +633,8 @@
   position: relative;
   animation: popupFade 0.3s ease-out;
 }
+
+/* 🎯 隨機加入彈窗 - 關閉按鈕 */
 #closePopup {
   position: absolute;
   top: 10px;
@@ -434,84 +646,114 @@
   cursor: pointer;
   transition: color 0.2s ease;
 }
-#closePopup:hover { color: #000; }
+
+#closePopup:hover {
+  color: #000;  /* hover 時稍微變深 */
+}
+
+
+/* 彈出淡入動畫 */
 @keyframes popupFade {
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
-/* =========================================
-   📱 手機版響應式設計 (關鍵修正)
-   ========================================= */
+/* ... (保留 WheelPage.css 原有內容) ... */
+
+/* 📱 手機版響應式設計 */
 @media (max-width: 768px) {
-  /* 1. 減少頁面頂部內距，讓內容整體往上移 */
   #wheelPage {
-    padding-top: 60px; /* ⭐ 從 100px 減少到 60px */
+    padding: 80px 10px 30px; /* 減少內邊距 */
+    overflow-x: hidden; /* 防止橫向滾動 */
   }
 
-  /* 2. Header 調整：更緊湊 */
   .wheel-header {
-    padding: 10px;
-    justify-content: center;
-  }
-  .wheel-title {
-    font-size: 18px;
-    margin-right: 0; /* 取消右邊距 */
-  }
-  .left-buttons {
-    left: 10px; /* 返回按鈕靠左 */
-  }
-  .back-btn {
-    padding: 6px 12px;
-    font-size: 14px;
-  }
-
-  /* 3. ⭐ 關鍵：隨機/自訂按鈕往上移 */
-  .action-buttons-container {
-    position: static; /* 取消絕對定位，讓它回到流式佈局 */
-    display: flex;
-    justify-content: center;
-    margin-top: 10px; /* ⭐ 這裡控制它離 Header 的距離，數值越小越靠上 */
-    margin-bottom: 15px; 
-    transform: none; /* 取消任何位移 */
-  }
-  
-  /* 手機版按鈕稍小，適應螢幕 */
-  .random-btn, .customize-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-
-  /* 4. 重置左側面板容器 (結果 + 清單) */
-  /* 將它們改為放在轉盤下方，或者您希望的任何位置 */
-  .left-panel-container {
-    position: static;
-    width: 95%;
-    margin: 0 auto;
+    flex-direction: column;
     gap: 15px;
-    order: 2; /* 放在轉盤後面 */
+    padding: 10px 20px;
   }
 
-  /* 5. 轉盤核心區域 */
+  .wheel-title {
+    font-size: 22px;
+    transform: none !important; /* 取消電腦版的位移 */
+    margin: 0;
+  }
+
+  /* 核心區域：改為垂直堆疊 */
   .wheel-main {
     flex-direction: column;
     align-items: center;
-    margin-top: 0;
-    transform: none; /* 取消電腦版的右移 */
-  }
-  
-  .wheel-container {
-    margin-bottom: 20px;
-    order: 1; /* 轉盤在最上面 */
-    width: 100%;
-    max-width: 320px;
-  }
-  
-  /* 6. 抽選按鈕 */
-  .wheel-buttons {
-    transform: none;
+    transform: none !important; /* 取消電腦版的整體位移 */
     margin-top: 10px;
+  }
+
+  /* 轉盤容器 */
+  .wheel-container {
+    width: 100%;
+    max-width: 350px; /* 限制最大寬度 */
+    order: 1; /* 確保轉盤在最上方 */
     margin-bottom: 20px;
-    order: 1; /* 跟隨轉盤 */
+  }
+
+  .wheel-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .wheel-canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 操作按鈕容器 */
+  .action-buttons-container {
+    position: static; /* 取消絕對定位 */
+    justify-content: center;
+    margin-bottom: 20px;
+    transform: none;
+  }
+
+  /* 抽選按鈕 */
+  .wheel-buttons {
+    transform: none !important;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+
+  /* 左側面板容器（結果 + 清單）：改為流式佈局，放在轉盤下方 */
+  .left-panel-container {
+    position: static; /* 取消絕對定位 */
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    order: 2; /* 放在轉盤下方 */
+    gap: 15px;
+  }
+
+  /* 結果面板和清單 */
+  .result-panel,
+  .left-list {
+    width: 100%;
+    max-height: 200px; /* 限制高度，避免頁面過長 */
+  }
+
+  /* 彈窗調整 */
+  #customizeCard {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  /* 詳細資訊彈窗 */
+  #detailCard {
+    flex-direction: column;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  #detailImg {
+    max-width: 100%;
+    max-height: 200px;
+    margin: 0 auto 15px;
   }
 }
