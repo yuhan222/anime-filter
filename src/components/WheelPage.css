@@ -1,5 +1,5 @@
 /* =========================================
-   🖥️ 電腦版樣式 (預設)
+   🖥️ 電腦版樣式 (保持您要的設定)
    ========================================= */
 
 /* 🔹 頁面基本設定 */
@@ -11,13 +11,12 @@
   background: linear-gradient(135deg, #eef2ff, #dfe7ff);
   min-height: 100vh;
   
-  /* 增加頂部內邊距，為固定 Header 騰出空間 */
+  /* 電腦版 Header 空間 */
   padding-top: 100px; 
-  /* 隱藏水平溢出，避免轉盤右移導致的白邊 */
   overflow-x: hidden; 
 }
 
-/* 🔹 標題列 (Header) - 固定在頂部 */
+/* 🔹 標題列 (Header) */
 .wheel-header {
   display: flex;
   justify-content: center; /* 標題居中 */
@@ -45,6 +44,19 @@
   gap: 10px; 
 }
 
+/* ⭐ 電腦版：Header 下方功能按鈕位置 */
+.action-buttons-container {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 15px;
+    
+    /* 絕對定位 */
+    position: absolute;
+    top: 80px;  /* 電腦版的高度 */
+    left: 50px; 
+    z-index: 100;
+}
+
 /* 返回按鈕 */
 .back-btn {
   background: white;
@@ -56,60 +68,57 @@
   transition: 0.2s;
   font-weight: bold;
 }
-.back-btn:hover{ background: #edeef6da; }
+.back-btn:hover{
+  background: #edeef6da;
+}
 
+/* 隨機按鈕 */
+.random-btn {
+  font-size: 18px; 
+  background: #392cb5d6;
+  color: white;
+  border: none;
+  padding: 15px 29px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.random-btn:hover { background: #301dbd; }
+
+/* 自訂按鈕 */
+.customize-btn {
+  font-size: 18px; 
+  background: #392cb5d6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 15px 29px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.customize-btn:hover { background: #301dbd; }
 
 /* 🔹 主體布局：核心區域水平右移 */
-/* 這是轉盤與左側面板的父容器 */
 .wheel-main {
   display: flex;
-  justify-content: center; /* 讓轉盤核心區塊維持居中 */
+  justify-content: center; 
   align-items: flex-start;
   position: relative;
   width: 100%;
   margin-top: 20px;
-  /* ⭐ 電腦版：整體向右移動，保持視覺平衡 */
-  transform: translateX(130px); 
+  transform: translateX(130px); /* 電腦版右移 */
 }
 
-/* ⭐ 左側容器：用於包裹 [按鈕] + [抽選結果] + [已加入清單] */
+/* ⭐ 左側容器 */
 .left-panel-container {
-  /* ⭐ 絕對定位：相對於 wheel-main 定位在轉盤左側 */
   position: absolute;
-  left: -350px; /* 往左推，避免蓋住轉盤 */
-  top: 0;       /* 對齊頂部 */
-  width: 320px; 
-  
-  /* 讓內部元素 (按鈕、結果、清單) 垂直堆疊 */
+  left: -5px; 
+  top: 40px; 
+  width: 300px; 
   display: flex; 
   flex-direction: column;
-  gap: 15px; /* 各區塊間的間距 */
+  gap: 20px; 
 }
-
-/* ⭐ 功能按鈕容器 (隨機 & 自訂) */
-.action-buttons-container {
-    /* ⭐ 修正：在電腦版也是流式佈局，直接放在 left-panel-container 內 */
-    position: static; 
-    display: flex;
-    justify-content: space-between; /* 兩個按鈕平均分佈 */
-    width: 100%;
-}
-
-/* 隨機 & 自訂按鈕樣式 */
-.random-btn, .customize-btn {
-  background: #392cb5d6;
-  color: white;
-  border: none;
-  padding: 12px 0; /* 上下內距 */
-  width: 48%;      /* 按鈕各佔一半寬度 */
-  border-radius: 50px;
-  cursor: pointer;
-  transition: 0.25s;
-  font-size: 18px; /* 字體放大 */
-  text-align: center;
-}
-.random-btn:hover, .customize-btn:hover { background: #301dbd; }
-
 
 /* 🔹 抽選結果欄位 */
 .result-panel {
@@ -141,39 +150,6 @@
     border-bottom: none;
 }
 
-/* 詳細內容按鈕樣式 */
-.result-panel .detail-btn {
-  background: linear-gradient(135deg, #4c66ff, #6c7bff); 
-  color: white;
-  border: 1px solid #4a66ff;
-  border-radius: 18px; 
-  padding: 5px 12px;
-  margin-left: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(76, 102, 255, 0.3); 
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-}
-.result-panel .detail-btn:hover {
-  background: linear-gradient(135deg, #6c7bff, #4c66ff); 
-  transform: translateY(-1px); 
-  box-shadow: 0 6px 12px rgba(76, 102, 255, 0.45); 
-}
-.result-panel .detail-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 5px rgba(76, 102, 255, 0.2);
-}
-.result-panel .detail-btn::before {
-  content: '🔍'; 
-  margin-right: 4px;
-  font-size: 12px;
-}
-
-
 /* 🎴 左下側動畫清單 */
 .left-list { 
   width: 100%; 
@@ -185,6 +161,8 @@
   max-height: 250px;
   overflow-y: auto;
 }
+
+.right-list { display: none; }
 
 .left-list h3 {
   margin: 0 0 10px;
@@ -227,8 +205,6 @@
 
 /* 🔹 轉盤容器 */
 .wheel-container {
-  /* ⭐ 關鍵修正：加上 relative，讓絕對定位的指針以這裡為基準，手機版就不會飛走 */
-  position: relative; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -236,7 +212,7 @@
   flex-shrink: 0;
 }
 
-/* 🎯 轉盤大小固定 (電腦版) */
+/* 🎯 轉盤大小固定 */
 .wheel-wrapper {
   position: relative;
   width: 400px;
@@ -260,7 +236,7 @@
   border-right: 18px solid transparent;
   border-top: 30px solid #ff6b6b;
   position: absolute;
-  top: -20px; /* 稍微往上 */
+  top: -18px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -272,8 +248,7 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 20px;
-  /* 按鈕跟隨轉盤位移 */
+  margin-top: 15px;
   transform: translateX(130px); 
 }
 
@@ -292,90 +267,64 @@
 .spinBtn:hover, .clearWheelBtn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .clearWheelBtn:hover { background: #b50a0a; }
 
-/* 🔧 自訂彈窗樣式 (保持不變) */
+/* 🔧 自訂彈窗樣式 */
 #customizeOverlay {
   position: fixed !important;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   z-index: 9999;
 }
 #customizeCard {
-  background: #f8faff;
+  background: white;
   width: 90%;
   max-width: 500px;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); 
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
   position: relative;
   text-align: left;
-  max-height: 85vh;
+  max-height: 80vh;
   overflow-y: auto;
-}
-#customizeCard h2 {
-    font-size: 24px;
-    color: #2e14a3;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #6c7bff; 
-    text-align: center;
 }
 #closeCustomize {
   position: absolute;
   top: 15px;
   right: 15px;
-  font-size: 24px;
-  color: #333;
+  font-size: 22px;
+  color: #555;
   cursor: pointer;
   background: none;
   border: none;
-  transition: color 0.2s;
 }
-#closeCustomize:hover { color: #ff4a4a; }
 .segment-row {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  gap: 15px;
-}
-.segment-row label {
-    font-weight: 600;
-    color: #444;
+  margin-bottom: 12px;
+  gap: 10px;
 }
 .segment-row input {
   flex: 1;
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 8px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 15px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); 
-  transition: border-color 0.2s;
 }
-.segment-row input:focus { border-color: #6c7bff; outline: none; }
 #saveWheelContent {
   width: 100%;
-  padding: 12px;
-  margin-top: 30px;
-  background: linear-gradient(135deg, #4c66ff, #2e14a3);
+  padding: 10px;
+  margin-top: 20px;
+  background: #1f11a1d6;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 17px;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 15px rgba(46, 20, 163, 0.4); 
 }
-#saveWheelContent:hover {
-  background: linear-gradient(135deg, #2e14a3, #4c66ff);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(46, 20, 163, 0.5);
-}
+#saveWheelContent:hover { background: #3c2bb8; }
 
 .wheel-title {
   display: inline-block;
@@ -388,12 +337,45 @@
   letter-spacing: 2.5px;
   box-shadow: none; 
   margin: 0;
+  margin-right: 70px; 
   transform: none; 
   text-align: center; 
   transition: none;
 }
 
-/* 🎲 隨機彈窗樣式 (保持不變) */
+/* 詳細按鈕樣式 */
+.result-panel .detail-btn {
+  background: linear-gradient(135deg, #4c66ff, #6c7bff); 
+  color: white;
+  border: 1px solid #4a66ff;
+  border-radius: 18px; 
+  padding: 5px 12px;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(76, 102, 255, 0.3); 
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+}
+.result-panel .detail-btn:hover {
+  background: linear-gradient(135deg, #6c7bff, #4c66ff); 
+  transform: translateY(-1px); 
+  box-shadow: 0 6px 12px rgba(76, 102, 255, 0.45); 
+}
+.result-panel .detail-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(76, 102, 255, 0.2);
+}
+.result-panel .detail-btn::before {
+  content: '🔍'; 
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+/* 🎲 隨機彈窗樣式 */
 .random-input {
   width: 80px;
   padding: 8px;
@@ -462,83 +444,74 @@
    📱 手機版響應式設計 (關鍵修正)
    ========================================= */
 @media (max-width: 768px) {
-  /* 1. 減少頁面頂部內距，Header更緊湊 */
+  /* 1. 減少頁面頂部內距，讓內容整體往上移 */
   #wheelPage {
-    padding: 60px 10px 20px; /* 上60 左右10 下20 */
+    padding-top: 60px; /* ⭐ 從 100px 減少到 60px */
   }
 
-  /* 2. Header 調整 */
+  /* 2. Header 調整：更緊湊 */
   .wheel-header {
     padding: 10px;
     justify-content: center;
   }
   .wheel-title {
     font-size: 18px;
-    letter-spacing: 1px;
+    margin-right: 0; /* 取消右邊距 */
   }
   .left-buttons {
-    left: 10px;
+    left: 10px; /* 返回按鈕靠左 */
   }
   .back-btn {
     padding: 6px 12px;
     font-size: 14px;
   }
 
-  /* 3. 轉盤核心區域：垂直排列，取消所有位移 */
+  /* 3. ⭐ 關鍵：隨機/自訂按鈕往上移 */
+  .action-buttons-container {
+    position: static; /* 取消絕對定位，讓它回到流式佈局 */
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* ⭐ 這裡控制它離 Header 的距離，數值越小越靠上 */
+    margin-bottom: 15px; 
+    transform: none; /* 取消任何位移 */
+  }
+  
+  /* 手機版按鈕稍小，適應螢幕 */
+  .random-btn, .customize-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  /* 4. 重置左側面板容器 (結果 + 清單) */
+  /* 將它們改為放在轉盤下方，或者您希望的任何位置 */
+  .left-panel-container {
+    position: static;
+    width: 95%;
+    margin: 0 auto;
+    gap: 15px;
+    order: 2; /* 放在轉盤後面 */
+  }
+
+  /* 5. 轉盤核心區域 */
   .wheel-main {
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
-    transform: none !important; /* ⭐ 強制取消電腦版的右移 */
+    margin-top: 0;
+    transform: none; /* 取消電腦版的右移 */
   }
   
-  /* 4. 轉盤容器：手機版自適應大小 */
   .wheel-container {
     margin-bottom: 20px;
     order: 1; /* 轉盤在最上面 */
     width: 100%;
-    height: auto;
-    max-width: 320px; /* 手機上最大 320px */
-  }
-
-  /* ⭐ 讓轉盤保持正方形，並縮放 */
-  .wheel-wrapper {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1/1; /* 保持正方形 */
-    margin: 0 auto;
-  }
-
-  /* 5. 抽選按鈕：跟隨轉盤 */
-  .wheel-buttons {
-    transform: none !important;
-    margin-top: 5px;
-    margin-bottom: 25px;
-    order: 2; /* 放在轉盤下方 */
-  }
-
-  /* 6. 左側面板 (按鈕+結果+清單)：改為流式佈局 */
-  .left-panel-container {
-    position: static; /* 取消絕對定位 */
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    gap: 15px;
-    order: 3; /* 放在按鈕下方 */
-  }
-
-  /* 7. 隨機/自訂按鈕：手機版樣式 */
-  .action-buttons-container {
-    position: static;
-    margin-bottom: 10px;
-  }
-  .random-btn, .customize-btn {
-    padding: 10px;
-    font-size: 16px;
+    max-width: 320px;
   }
   
-  /* 8. 結果面板和清單 */
-  .result-panel, .left-list {
-    max-height: 250px;
+  /* 6. 抽選按鈕 */
+  .wheel-buttons {
+    transform: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    order: 1; /* 跟隨轉盤 */
   }
 }
