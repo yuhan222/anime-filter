@@ -413,3 +413,150 @@
   }
 }
 
+/* ... (保留上面原有的 AnimeFilter.css 內容) ... */
+
+/* =========================================
+   📱 手機版響應式設計 (不會影響電腦版)
+   ========================================= */
+@media (max-width: 768px) {
+  
+  /* 1. 整體容器 */
+  .anime-container {
+    padding-bottom: 20px;
+  }
+
+  /* 2. Header 調整 */
+  .top-header {
+    padding: 10px 15px;
+  }
+  .top-header h1 {
+    font-size: 18px;
+  }
+  .wheel-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  /* 3. 搜尋區塊調整 */
+  #searchSection {
+    width: 95%; /* 寬度加大 */
+    margin: 15px auto;
+    gap: 10px;
+  }
+
+  /* 讓搜尋欄和按鈕水平排列，並縮小輸入框 */
+  .search-bar-wrapper {
+    flex-direction: row !important; /* 強制水平 */
+    width: 100%;
+    gap: 8px;
+  }
+
+  #searchBar,
+  .search-bar-wrapper input {
+    width: auto; 
+    flex: 1; /* 自動填滿剩餘空間 */
+    min-width: 0;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  #searchNameBtn {
+    padding: 8px 12px;
+    font-size: 14px;
+    white-space: nowrap; /* 防止文字換行 */
+    flex-shrink: 0;
+  }
+
+  /* 4. 篩選器按鈕區 */
+  #filters {
+    gap: 4px;
+    justify-content: space-between; /* 分散對齊 */
+  }
+
+  .dropdown-btn {
+    min-width: auto; /* 取消最小寬度限制 */
+    width: 30%;      /* 一行三個大概 */
+    padding: 8px 20px 8px 8px;
+    font-size: 13px;
+  }
+  
+  .dropdown-btn::after {
+    right: 5px;
+  }
+
+  #filterBtn, #resetBtn {
+    flex: 1; /* 按鈕平分剩餘空間 */
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  /* 5. 動漫卡片網格：改為 2 列 */
+  #animeWrapper {
+    width: 95%;
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 15px 15px 0 0;
+  }
+
+  #animeGrid {
+    grid-template-columns: repeat(2, 1fr); /* 改為 2 列 */
+    gap: 10px;
+  }
+
+  .animeCard img {
+    height: 140px; /* 圖片高度縮小 */
+  }
+
+  .animeCard h3 {
+    font-size: 14px;
+    margin: 6px;
+  }
+
+  /* 6. 詳細資訊彈窗：改為垂直堆疊 */
+  #detailCard {
+    flex-direction: column;
+    width: 90%;
+    padding: 15px;
+    max-height: 85vh;
+    overflow-y: auto; /* 允許垂直滾動 */
+    gap: 15px;
+  }
+
+  #detailImg {
+    max-width: 100%;
+    max-height: 250px; /* 限制圖片高度 */
+    margin: 0 auto;    /* 圖片置中 */
+    display: block;
+  }
+  
+  /* 內容區域改為單欄 */
+  .detail-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .detail-right {
+    width: 100%; /* 影片區塊佔滿寬度 */
+    margin-top: 10px;
+  }
+
+  .detail-right iframe {
+    height: 200px; /* 影片高度 */
+  }
+
+  /* 加入轉盤按鈕 */
+  .add-wheel-btn {
+    position: static; /* 取消絕對定位 */
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  /* 關閉按鈕 */
+  #closeDetail {
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+  }
+}
