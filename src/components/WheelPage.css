@@ -657,3 +657,103 @@
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* ... (保留 WheelPage.css 原有內容) ... */
+
+/* 📱 手機版響應式設計 */
+@media (max-width: 768px) {
+  #wheelPage {
+    padding: 80px 10px 30px; /* 減少內邊距 */
+    overflow-x: hidden; /* 防止橫向滾動 */
+  }
+
+  .wheel-header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 20px;
+  }
+
+  .wheel-title {
+    font-size: 22px;
+    transform: none !important; /* 取消電腦版的位移 */
+    margin: 0;
+  }
+
+  /* 核心區域：改為垂直堆疊 */
+  .wheel-main {
+    flex-direction: column;
+    align-items: center;
+    transform: none !important; /* 取消電腦版的整體位移 */
+    margin-top: 10px;
+  }
+
+  /* 轉盤容器 */
+  .wheel-container {
+    width: 100%;
+    max-width: 350px; /* 限制最大寬度 */
+    order: 1; /* 確保轉盤在最上方 */
+    margin-bottom: 20px;
+  }
+
+  .wheel-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .wheel-canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 操作按鈕容器 */
+  .action-buttons-container {
+    position: static; /* 取消絕對定位 */
+    justify-content: center;
+    margin-bottom: 20px;
+    transform: none;
+  }
+
+  /* 抽選按鈕 */
+  .wheel-buttons {
+    transform: none !important;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+
+  /* 左側面板容器（結果 + 清單）：改為流式佈局，放在轉盤下方 */
+  .left-panel-container {
+    position: static; /* 取消絕對定位 */
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    order: 2; /* 放在轉盤下方 */
+    gap: 15px;
+  }
+
+  /* 結果面板和清單 */
+  .result-panel,
+  .left-list {
+    width: 100%;
+    max-height: 200px; /* 限制高度，避免頁面過長 */
+  }
+
+  /* 彈窗調整 */
+  #customizeCard {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  /* 詳細資訊彈窗 */
+  #detailCard {
+    flex-direction: column;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  #detailImg {
+    max-width: 100%;
+    max-height: 200px;
+    margin: 0 auto 15px;
+  }
+}

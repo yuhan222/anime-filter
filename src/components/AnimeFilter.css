@@ -413,3 +413,78 @@
   }
 }
 
+/* ... (保留 AnimeFilter.css 原有內容) ... */
+
+/* 📱 手機版響應式設計 */
+@media (max-width: 768px) {
+  /* 搜尋區塊垂直排列 */
+  #searchSection {
+    width: 95%;
+  }
+
+  .search-bar-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #searchBar,
+  .search-bar-wrapper input {
+    width: 100%;
+    max-width: none;
+  }
+
+  #filters {
+    gap: 8px;
+  }
+
+  .dropdown-btn {
+    min-width: 100px;
+    padding: 8px 25px 8px 8px;
+    font-size: 14px;
+  }
+
+  /* 動漫卡片網格：改為 2 列 */
+  #animeGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* 詳細彈窗：垂直堆疊 */
+  #detailCard {
+    flex-direction: column;
+    padding: 15px;
+    width: 95%;
+    max-height: 90vh; /* 防止彈窗超出螢幕高度 */
+    overflow-y: auto; /* 允許彈窗內部滾動 */
+  }
+
+  #detailImg {
+    max-width: 100%;
+    max-height: 250px;
+    margin: 0 auto; /* 圖片置中 */
+    display: block;
+  }
+
+  .detail-row {
+    flex-direction: column;
+  }
+
+  .detail-right {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .trailer-section iframe, 
+  .detail-right iframe {
+    width: 100%; /* 影片寬度自適應 */
+    height: 200px;
+  }
+
+  /* 按鈕調整 */
+  .add-wheel-btn {
+    position: static; /* 取消絕對定位 */
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+  }
+}
