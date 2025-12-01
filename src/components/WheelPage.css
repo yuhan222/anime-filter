@@ -1,5 +1,5 @@
 /* =========================================
-   🖥️ 電腦版樣式 (保持您要的設定)
+   🖥️ 電腦版樣式 (保持不變)
    ========================================= */
 
 /* 🔹 頁面基本設定 */
@@ -212,7 +212,7 @@
   flex-shrink: 0;
 }
 
-/* 🎯 轉盤大小固定 */
+/* 🎯 轉盤大小固定 (電腦版) */
 .wheel-wrapper {
   position: relative;
   width: 400px;
@@ -337,7 +337,7 @@
   letter-spacing: 2.5px;
   box-shadow: none; 
   margin: 0;
-  margin-right: 70px; 
+  margin-right: 0; 
   transform: none; 
   text-align: center; 
   transition: none;
@@ -444,52 +444,51 @@
    📱 手機版響應式設計 (關鍵修正)
    ========================================= */
 @media (max-width: 768px) {
-  /* 1. 減少頁面頂部內距，讓內容整體往上移 */
+  /* 1. 減少頁面頂部內距 */
   #wheelPage {
-    padding-top: 60px; /* ⭐ 從 100px 減少到 60px */
+    padding-top: 60px;
   }
 
-  /* 2. Header 調整：更緊湊 */
+  /* 2. Header 調整 */
   .wheel-header {
     padding: 10px;
     justify-content: center;
   }
   .wheel-title {
     font-size: 18px;
-    margin-right: 0; /* 取消右邊距 */
+    margin-right: 0;
   }
   .left-buttons {
-    left: 10px; /* 返回按鈕靠左 */
+    left: 10px;
   }
   .back-btn {
     padding: 6px 12px;
     font-size: 14px;
   }
 
-  /* 3. ⭐ 關鍵：隨機/自訂按鈕往上移 */
+  /* 3. 隨機/自訂按鈕往上移 */
   .action-buttons-container {
-    position: static; /* 取消絕對定位，讓它回到流式佈局 */
+    position: static;
     display: flex;
     justify-content: center;
-    margin-top: 10px; /* ⭐ 這裡控制它離 Header 的距離，數值越小越靠上 */
+    margin-top: 10px;
     margin-bottom: 15px; 
-    transform: none; /* 取消任何位移 */
+    transform: none;
   }
   
-  /* 手機版按鈕稍小，適應螢幕 */
+  /* 手機版按鈕稍小 */
   .random-btn, .customize-btn {
     padding: 10px 20px;
     font-size: 16px;
   }
 
-  /* 4. 重置左側面板容器 (結果 + 清單) */
-  /* 將它們改為放在轉盤下方，或者您希望的任何位置 */
+  /* 4. 重置左側面板容器 */
   .left-panel-container {
     position: static;
     width: 95%;
     margin: 0 auto;
     gap: 15px;
-    order: 2; /* 放在轉盤後面 */
+    order: 2; 
   }
 
   /* 5. 轉盤核心區域 */
@@ -497,14 +496,22 @@
     flex-direction: column;
     align-items: center;
     margin-top: 0;
-    transform: none; /* 取消電腦版的右移 */
+    transform: none;
   }
   
   .wheel-container {
     margin-bottom: 20px;
-    order: 1; /* 轉盤在最上面 */
+    order: 1; 
     width: 100%;
-    max-width: 320px;
+    max-width: 320px; /* 限制最大寬度 */
+  }
+
+  /* ⭐⭐⭐ 關鍵修正：強制轉盤 wrapper 在手機上 RWD ⭐⭐⭐ */
+  .wheel-wrapper {
+    width: 100%;        /* 寬度佔滿容器 */
+    height: auto;       /* 高度自動 */
+    aspect-ratio: 1/1;  /* 保持正方形比例 */
+    max-width: 320px;   /* 最大不超過 320px */
   }
   
   /* 6. 抽選按鈕 */
@@ -512,6 +519,6 @@
     transform: none;
     margin-top: 10px;
     margin-bottom: 20px;
-    order: 1; /* 跟隨轉盤 */
+    order: 1;
   }
 }
