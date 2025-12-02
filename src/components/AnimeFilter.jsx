@@ -98,8 +98,19 @@ const fetchTotalEpisodes = async (mal_id, season_ids = []) => {
     let totalEpisodes = 0;
     let allScores = [];
 
+    // 延遲函式，避免 API 429 錯誤
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     for (const id of allIds) {
+      await delay(600); // 每次請求前等待 600ms
+      
       const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
+      
+      if (res.status === 429) {
+         console.warn(`⚠️ ID ${id} 請求過快，跳過此季`);
+         continue; 
+      }
+
       const data = await res.json();
       if (data.data) {
         totalEpisodes += data.data.episodes || 0;
@@ -344,7 +355,8 @@ const seasonData = await fetchTotalEpisodes(
 
       {/* 動漫顯示區 */}
       <div id="animeWrapper">
-        <div id="animeGrid" ref={animeGridRef}>
+        {/* ⭐⭐⭐ 關鍵修正：加入 key={currentPage} 讓換頁時強制重新渲染，觸發 CSS 動畫 ⭐⭐⭐ */}
+        <div id="animeGrid" ref={animeGridRef} key={currentPage}>
           {paginatedList.map((anime, index) => (
             <div
               key={index}

@@ -1,5 +1,5 @@
 /* =========================================
-   🖥️ 電腦版樣式 (完全還原，不更動任何定位邏輯)
+   🖥️ 電腦版樣式 (增強版白裡透藍動畫)
    ========================================= */
 
 /* 🔹 頁面基本設定 */
@@ -8,11 +8,65 @@
   text-align: center;
   padding: 50px;
   font-family: "Microsoft JhengHei", sans-serif;
-  background: linear-gradient(135deg, #eef2ff, #dfe7ff);
+  
+  /* ⭐ 修正：極淺的白藍色漸變，讓背景流動感更強烈 */
+  background: linear-gradient(-45deg, #f5f7fa, #edf2ff, #f3f6ff, #e9f0ff); 
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite; /* 加速到 12s */
+  
   min-height: 100vh;
   padding-top: 100px; 
   overflow-x: hidden; 
+  
+  position: relative; 
+  z-index: 0; 
 }
+
+/* ⭐ 新增：背景流動動畫關鍵影格 */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ⭐⭐ 新增：背景漂浮光斑 (增強尺寸和不透明度) ⭐⭐ */
+#wheelPage::before,
+#wheelPage::after {
+  content: "";
+  position: fixed; 
+  border-radius: 50%; 
+  filter: blur(120px); /* 增強模糊，擴大光暈範圍 */
+  z-index: -1; 
+  pointer-events: none; 
+  animation: floatShape 18s infinite alternate ease-in-out; 
+}
+
+/* 左上光斑 (深藍色，高透明度) */
+#wheelPage::before {
+  width: 600px; /* 增加尺寸 */
+  height: 600px;
+  background: rgba(100, 149, 237, 0.45); /* ⭐ 較亮的藍色，高透明度 */
+  top: -150px;
+  left: -150px;
+}
+
+/* 右下光斑 (淺藍色，高透明度) */
+#wheelPage::after {
+  width: 500px;
+  height: 500px;
+  background: rgba(135, 206, 250, 0.45); /* ⭐ 提高不透明度 */
+  bottom: -100px;
+  right: -50px;
+  animation-delay: -10s; 
+  animation-duration: 20s; 
+}
+
+/* ⭐ 新增：光斑漂浮動畫 */
+@keyframes floatShape {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { transform: translate(50px, 30px) scale(1.1) rotate(5deg); }
+}
+
 
 /* 🔹 標題列 (Header) */
 .wheel-header {
@@ -39,7 +93,7 @@
   margin-left: 0; 
 }
 
-/* ⭐ Header 下方功能按鈕位置 (隨機和自訂) */
+/* Header 下方功能按鈕位置 (隨機和自訂) */
 .action-buttons-container {
     display: flex;
     justify-content: flex-start; 
@@ -72,6 +126,8 @@
   cursor: pointer;
   transition: 0.25s;
   font-size: 20px;
+  background: rgba(57, 44, 181, 0.9);
+  backdrop-filter: blur(4px); 
 }
 .random-btn:hover { background: #301dbd; }
 
@@ -85,6 +141,8 @@
   cursor: pointer;
   transition: 0.2s;
   font-size: 20px;
+  background: rgba(57, 44, 181, 0.9);
+  backdrop-filter: blur(4px); 
 }
 .customize-btn:hover { background: #301dbd; }
 
@@ -96,10 +154,11 @@
   position: relative;
   width: 100%;
   margin-top: 35px;
-  transform: translateX(250px); /* ⭐ 保持電腦版右移 */
+  transform: translateX(250px); 
+  z-index: 1; 
 }
 
-/* ⭐ 左側容器 */
+/* 左側容器 */
 .left-panel-container {
   position: absolute;
   left: -70px; 
@@ -113,7 +172,8 @@
 /* 🔹 抽選結果欄位 */
 .result-panel {
   width: 100%; 
-  background: white;
+  background: rgba(255, 255, 255, 0.60); /* ⭐ 增加透明度到 0.60 */
+  backdrop-filter: blur(10px); 
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -121,6 +181,7 @@
   font-size: 15px;
   max-height: 300px; 
   overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.5); /* 增加邊框透明度 */
 }
 
 .result-panel h3 {
@@ -140,16 +201,51 @@
     border-bottom: none;
 }
 
+/* 詳細內容按鈕 */
+.result-panel .detail-btn {
+  background: linear-gradient(135deg, #4c66ff, #6c7bff); 
+  color: white;
+  border: 1px solid #4a66ff;
+  border-radius: 18px; 
+  padding: 5px 12px;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(76, 102, 255, 0.3); 
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+}
+.result-panel .detail-btn:hover {
+  background: linear-gradient(135deg, #6c7bff, #4c66ff); 
+  transform: translateY(-1px); 
+  box-shadow: 0 6px 12px rgba(76, 102, 255, 0.45); 
+}
+.result-panel .detail-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(76, 102, 255, 0.2);
+}
+.result-panel .detail-btn::before {
+  content: '🔍'; 
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+
 /* 🎴 左下側動畫清單 */
 .left-list { 
   width: 100%; 
-  background: white;
+  background: rgba(255, 255, 255, 0.75); /* ⭐ 增加透明度 */
+  backdrop-filter: blur(10px); 
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   text-align: left;
   max-height: 250px;
   overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .left-list h3 {
@@ -163,7 +259,7 @@
   align-items: center;
   gap: 10px;
   padding: 8px;
-  background: white;
+  background: white; 
   border-radius: 8px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
@@ -191,13 +287,14 @@
 }
 .right-item button:hover { background: #d93838; }
 
-/* 🔹 轉盤容器 (電腦版維持原樣，不加 relative) */
+/* 🔹 轉盤容器 */
 .wheel-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 400px;
   flex-shrink: 0;
+  z-index: 1; 
 }
 
 /* 🎯 轉盤大小固定 */
@@ -214,6 +311,8 @@
   border-radius: 50%;
   border: 6px solid #6c7bff;
   box-shadow: 0 0 20px rgba(108,123,255,0.4), inset 0 0 12px rgba(255,255,255,0.6);
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(2px);
 }
 
 /* 🔺 指針 */
@@ -224,7 +323,7 @@
   border-right: 18px solid transparent;
   border-top: 30px solid #ff6b6b;
   position: absolute;
-  top: -18px; /* 電腦版預設位置 */
+  top: -18px; 
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -238,6 +337,7 @@
   gap: 15px;
   margin-top: 30px;
   transform: translateX(250px); 
+  z-index: 1;
 }
 
 .spinBtn, .clearWheelBtn {
@@ -267,6 +367,7 @@
   justify-content: center !important;
   align-items: center !important;
   z-index: 9999;
+  backdrop-filter: blur(5px);
 }
 #customizeCard {
   background: white;
@@ -341,39 +442,7 @@
   transition: none;
 }
 
-/* 詳細按鈕樣式 */
-.result-panel .detail-btn {
-  background: linear-gradient(135deg, #4c66ff, #6c7bff); 
-  color: white;
-  border: 1px solid #4a66ff;
-  border-radius: 18px; 
-  padding: 5px 12px;
-  margin-left: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(76, 102, 255, 0.3); 
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-}
-.result-panel .detail-btn:hover {
-  background: linear-gradient(135deg, #6c7bff, #4c66ff); 
-  transform: translateY(-1px); 
-  box-shadow: 0 6px 12px rgba(76, 102, 255, 0.45); 
-}
-.result-panel .detail-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 5px rgba(76, 102, 255, 0.2);
-}
-.result-panel .detail-btn::before {
-  content: '🔍'; 
-  margin-right: 4px;
-  font-size: 12px;
-}
-
-/* 🎲 隨機彈窗樣式 */
+/* 🎲 隨機彈窗樣式 (保持不變) */
 .random-input {
   width: 80px;
   padding: 8px;
@@ -410,6 +479,7 @@
   justify-content: center !important;
   align-items: center !important;
   z-index: 50000;
+  backdrop-filter: blur(5px);
 }
 #popupCard {
   background: white;
@@ -438,7 +508,7 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-/* 🟣 AnimeFilter 詳細資訊彈窗 — 完整套用 (不變) */
+/* 🟣 AnimeFilter 詳細資訊彈窗 */
 #detailOverlay {
   display: none;
   position: fixed;
@@ -447,6 +517,7 @@
   justify-content: center;
   align-items: center;
   z-index: 50000;
+  backdrop-filter: blur(5px);
 }
 #detailOverlay.active { display: flex; }
 
@@ -502,7 +573,7 @@
   cursor: pointer;
 }
 
-/* 🎬 預告片區塊 */
+/* 🎬 預告片區塊 - 保持不變 */
 .trailer-section {
   margin-top: 20px;
   padding: 12px;
@@ -519,7 +590,6 @@
 
 /* =========================================
    📱 手機版響應式設計 
-   (只在螢幕寬度小於 768px 時生效，完全不影響電腦版)
    ========================================= */
 @media (max-width: 768px) {
   
@@ -529,7 +599,7 @@
     overflow-x: hidden; 
   }
 
-  /* 2. Header 調整：讓按鈕和標題水平排列 */
+  /* 2. Header 調整 */
   .wheel-header {
     flex-direction: row; 
     justify-content: space-between; 
@@ -548,7 +618,7 @@
   }
 
   .left-buttons {
-    position: static; /* 取消絕對定位 */
+    position: static; 
     transform: none;
     margin-right: auto; 
   }
@@ -558,21 +628,20 @@
     font-size: 14px;
   }
 
-  /* 3. 核心區域：垂直堆疊 */
+  /* 3. 核心區域垂直 */
   .wheel-main {
     flex-direction: column;
     align-items: center;
-    transform: none !important; /* 強制取消電腦版的位移 */
+    transform: none !important; 
     margin-top: 10px;
   }
 
-  /* 4. 轉盤容器 */
+  /* 4. 轉盤容器 (相對定位，修復指針) */
   .wheel-container {
     width: 100%;
     max-width: 350px; 
     order: 1; 
     margin-bottom: 20px;
-    /* ⭐⭐⭐ 關鍵：手機版加入 relative，讓指針有基準點 ⭐⭐⭐ */
     position: relative; 
   }
 
@@ -588,9 +657,9 @@
     height: 100%;
   }
   
-  /* ⭐⭐⭐ 指針修正：手機版往下移 ⭐⭐⭐ */
+  /* 指針下移 */
   .pointer {
-     top: -5px; /* 貼近轉盤 */
+     top: -5px; 
   }
 
   /* 5. 操作按鈕容器 */
@@ -621,7 +690,7 @@
     font-size: 16px;
   }
 
-  /* 7. 左側面板容器（結果 + 清單） */
+  /* 7. 左側面板容器 */
   .left-panel-container {
     position: static; 
     width: 100%;
@@ -632,8 +701,7 @@
     gap: 15px;
   }
 
-  .result-panel,
-  .left-list {
+  .result-panel, .left-list {
     width: 100%;
     max-height: 200px; 
   }
@@ -645,19 +713,12 @@
     max-height: 85vh;
   }
   
-  /* 詳細資訊彈窗 */
   #detailCard {
     flex-direction: column;
     width: 95%;
     max-height: 90vh;
     overflow-y: auto;
     padding: 15px;
-  }
-  
-  #detailImg {
-    max-width: 100%;
-    max-height: 200px;
-    margin: 0 auto 15px;
   }
   
   .detail-row {
